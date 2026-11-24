@@ -25,5 +25,14 @@ public class 실습1 {
     public void consumer1(String message) {
         System.out.println("member-topic-log-group 메시지 수신 : " + message);
     }
+////    테스트3. 한대의 서버에서 여러개의 토픽구독도 가능
+//    @KafkaListener(
+//            topics = "order-topic",
+//            groupId = "${spring.kafka.consumer.order-topic-log-group-id}",
+//            containerFactory = "kafkaListener"
+//    )
+//    public void consumer2(String message) {
+//        System.out.println("order-topic-log-group 메시지 수신 : " + message);
+//    }
 
 }
