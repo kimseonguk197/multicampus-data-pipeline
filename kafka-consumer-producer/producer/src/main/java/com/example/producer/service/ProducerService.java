@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tools.jackson.databind.json.JsonMapper;
 
+import java.time.LocalDateTime;
+
 @Service
 @Transactional
 public class ProducerService {
@@ -16,6 +18,7 @@ public class ProducerService {
         this.jsonMapper = jsonMapper;
     }
     public void kafkaMessageCreate(MemberDto dto) {
+        dto.setCreatedAt(LocalDateTime.now());
         System.out.println(dto);
         String memberData = jsonMapper.writeValueAsString(dto);
         kafkaTemplate.send("member-topic", memberData);
@@ -25,7 +28,7 @@ public class ProducerService {
     }
 
     public void kafkaMessageKeyCreate(MemberDto dto, Long id) {
-
+        dto.setCreatedAt(LocalDateTime.now());
         System.out.println(dto);
         String data = jsonMapper.writeValueAsString(dto);
         kafkaTemplate.send("member-topic", String.valueOf(id), data);
